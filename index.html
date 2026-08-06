@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>عود الزبارة — داشبورد الأعمال | Oud Al Zubarah Business Dashboard</title>
+<style>
+:root{
+  color-scheme: light;
+  --navy:#060D1F;
+  --navy2:#0B1630;
+  --panel:#101E3E;
+  --panel2:#16264B;
+  --line:#22345F;
+  --ember:#E2683C;
+  --ember2:#FF8A50;
+  --gold:#C0A15C;
+  --gold2:#E3C98A;
+  --txt:#EDF1F9;
+  --muted:#8FA2C4;
+  --ok:#3FA97A;
+  --warn:#D9A441;
+  --risk:#D9534F;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  background:var(--navy);
+  color:var(--txt);
+  font-family:"Segoe UI","Tahoma","Noto Kufi Arabic",Arial,sans-serif;
+  padding:22px 20px 60px;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:1180px;margin:0 auto}
+
+/* ---------- header ---------- */
+.hero{
+  position:relative;overflow:hidden;
+  background:
+    radial-gradient(680px 240px at 88% -30%, rgba(226,104,60,.30), transparent 60%),
+    radial-gradient(420px 200px at 8% 120%, rgba(192,161,92,.13), transparent 65%),
+    linear-gradient(140deg,#0C1932,#060D1F 70%);
+  border:1px solid var(--line);
+  border-radius:18px;padding:26px 28px;margin-bottom:20px;
+}
+.hero:after{content:"";position:absolute;inset:auto 0 0 0;height:2px;
+  background:linear-gradient(90deg,transparent,var(--ember),var(--gold),transparent)}
+.brandline{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;flex-wrap:wrap}
+h1{font-size:27px;font-weight:700;letter-spacing:.3px}
+h1 span{color:var(--gold2);font-weight:400;font-size:17px;display:block;letter-spacing:2px;margin-top:2px}
+.tag{color:var(--muted);font-size:13.5px;margin-top:8px}
+.stamp{text-align:left;font-size:12px;color:var(--muted);white-space:nowrap}
+.stamp b{color:var(--gold2);font-weight:600}
+
+/* ---------- kpis ---------- */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(168px,1fr));gap:12px;margin-top:22px}
+.kpi{background:rgba(16,30,62,.72);border:1px solid var(--line);border-radius:13px;padding:14px 16px}
+.kpi .v{font-size:26px;font-weight:700;color:var(--gold2);line-height:1.2}
+.kpi .v.em{color:var(--ember2)}
+.kpi .l{font-size:12px;color:var(--muted);margin-top:2px}
+.kpi .l i{font-style:normal;opacity:.62;display:block;font-size:10.5px;letter-spacing:.6px}
+
+/* ---------- overall ring ---------- */
+.overall{display:flex;align-items:center;gap:24px;background:var(--panel);border:1px solid var(--line);
+  border-radius:16px;padding:20px 24px;margin-bottom:20px;flex-wrap:wrap}
+.ring{position:relative;width:132px;height:132px;flex:0 0 auto}
+.ring svg{transform:rotate(-90deg)}
+.ring .pc{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .pc b{font-size:30px;color:var(--gold2)}
+.ring .pc small{font-size:10.5px;color:var(--muted);letter-spacing:1px}
+.overall .txt{flex:1;min-width:250px}
+.overall h3{font-size:16px;margin-bottom:6px}
+.overall p{font-size:13px;color:var(--muted)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px;font-size:12px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:50%;display:inline-block;margin-left:6px}
+
+/* ---------- sections ---------- */
+.sechead{display:flex;align-items:center;gap:12px;margin:26px 0 13px}
+.sechead h2{font-size:17px;white-space:nowrap}
+.sechead h2 span{color:var(--muted);font-weight:400;font-size:12.5px;letter-spacing:1px}
+.sechead:before{content:"";width:5px;height:22px;border-radius:3px;background:linear-gradient(var(--ember),var(--gold))}
+.sechead .rule{flex:1;height:1px;background:linear-gradient(90deg,var(--line),transparent)}
+
+/* ---------- project cards ---------- */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:14px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:17px 18px;cursor:pointer;
+  transition:.18s;position:relative;overflow:hidden}
+.card:hover{border-color:var(--ember);transform:translateY(-2px);box-shadow:0 10px 26px -14px rgba(226,104,60,.75)}
+.card .top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card h4{font-size:15.5px;font-weight:600}
+.card h4 em{font-style:normal;display:block;font-size:11px;color:var(--muted);letter-spacing:.7px;font-weight:400;margin-top:1px}
+.pill{font-size:10.5px;padding:3px 9px;border-radius:99px;white-space:nowrap;border:1px solid}
+.pill.done{color:#7FE3B6;border-color:#1F6A4C;background:rgba(63,169,122,.14)}
+.pill.live{color:#FFC58A;border-color:#8A5426;background:rgba(226,104,60,.15)}
+.pill.soon{color:#9FB3D6;border-color:#2B406E;background:rgba(43,64,110,.28)}
+.pill.risk{color:#FF9A96;border-color:#8A3230;background:rgba(217,83,79,.16)}
+.bar{height:9px;border-radius:99px;background:#0A142C;margin-top:14px;overflow:hidden;border:1px solid #1C2C51}
+.bar>i{display:block;height:100%;border-radius:99px;background:linear-gradient(90deg,var(--ember),var(--gold2));
+  box-shadow:0 0 12px rgba(226,104,60,.55);transition:width .6s cubic-bezier(.2,.7,.3,1)}
+.meta{display:flex;justify-content:space-between;font-size:11.5px;color:var(--muted);margin-top:8px}
+.meta b{color:var(--gold2);font-size:14px}
+.card .hint{font-size:11px;color:var(--muted);margin-top:9px;opacity:.75}
+
+/* ---------- content stats ---------- */
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.stat{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:15px;text-align:center}
+.stat .n{font-size:30px;font-weight:700;color:var(--ember2)}
+.stat .t{font-size:12.5px;margin-top:2px}
+.stat .e{font-size:10.5px;color:var(--muted);letter-spacing:.6px}
+.stat .adj{margin-top:9px;display:flex;gap:6px;justify-content:center}
+.stat button{background:#0A142C;border:1px solid var(--line);color:var(--muted);width:26px;height:23px;
+  border-radius:7px;cursor:pointer;font-size:14px;line-height:1}
+.stat button:hover{border-color:var(--ember);color:var(--ember2)}
+
+/* ---------- social ---------- */
+.socnote{background:rgba(217,164,65,.09);border:1px solid #6E5526;border-radius:11px;padding:11px 14px;
+  font-size:12px;color:#E6CE9B;margin-bottom:13px}
+.soc{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px}
+.sp{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
+.sp:before{content:"";position:absolute;top:0;right:0;left:0;height:3px;background:var(--pc,#fff);opacity:.85}
+.sp h4{font-size:15px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.sp h4 em{font-style:normal;font-size:10.5px;color:var(--muted);letter-spacing:1.2px;font-weight:400}
+.sm{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:13px}
+.smi{background:#0A142C;border:1px solid #1C2C51;border-radius:10px;padding:9px 11px;cursor:pointer;transition:.15s}
+.smi:hover{border-color:var(--ember)}
+.smi .sv{font-size:19px;font-weight:700;color:var(--gold2)}
+.smi .st{font-size:11px;color:var(--muted)}
+.sbest{margin-top:12px;font-size:11.5px;color:#B9C7E2;border-right:2px solid var(--ember);padding-right:9px}
+.sbest b{color:var(--ember2);font-weight:600}
+
+/* ---------- timeline ---------- */
+.tl{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:6px 20px 16px}
+.tl .row{display:flex;gap:14px;padding:12px 0;border-bottom:1px solid rgba(34,52,95,.55)}
+.tl .row:last-child{border-bottom:0}
+.tl .dot{width:11px;height:11px;border-radius:50%;margin-top:7px;flex:0 0 auto;box-shadow:0 0 0 4px rgba(255,255,255,.03)}
+.tl .d{font-size:11.5px;color:var(--muted);min-width:96px;padding-top:2px}
+.tl .c{flex:1}
+.tl .c b{font-size:13.5px;font-weight:600}
+.tl .c p{font-size:12px;color:var(--muted)}
+
+/* ---------- modal ---------- */
+.ov{position:fixed;inset:0;background:rgba(3,7,17,.82);backdrop-filter:blur(4px);display:none;
+  align-items:flex-start;justify-content:center;padding:34px 16px;overflow:auto;z-index:50}
+.ov.on{display:flex}
+.modal{background:linear-gradient(160deg,#0E1B39,#080F24);border:1px solid var(--line);border-radius:18px;
+  max-width:760px;width:100%;padding:26px 28px 30px;position:relative;box-shadow:0 30px 80px -30px #000}
+.modal:before{content:"";position:absolute;top:0;right:24px;left:24px;height:2px;
+  background:linear-gradient(90deg,var(--ember),var(--gold),transparent)}
+.x{position:absolute;top:14px;left:16px;background:none;border:1px solid var(--line);color:var(--muted);
+  width:32px;height:32px;border-radius:9px;cursor:pointer;font-size:17px}
+.x:hover{border-color:var(--ember);color:var(--ember2)}
+.modal h3{font-size:20px}
+.modal h3 em{font-style:normal;display:block;font-size:12px;color:var(--muted);letter-spacing:1px;font-weight:400}
+.mdesc{font-size:13px;color:#B9C7E2;margin:12px 0 16px;border-right:3px solid var(--ember);padding-right:12px}
+.mbar{height:11px;border-radius:99px;background:#0A142C;overflow:hidden;border:1px solid #1C2C51}
+.mbar>i{display:block;height:100%;background:linear-gradient(90deg,var(--ember),var(--gold2));transition:width .5s}
+.mnums{display:flex;justify-content:space-between;font-size:12px;color:var(--muted);margin:7px 0 18px}
+.mnums b{color:var(--gold2);font-size:16px}
+.sub{font-size:12px;color:var(--gold2);letter-spacing:1px;margin:16px 0 8px;text-transform:uppercase}
+.ms{list-style:none}
+.ms li{display:flex;gap:11px;align-items:flex-start;padding:9px 11px;border-radius:10px;cursor:pointer;
+  border:1px solid transparent;transition:.15s}
+.ms li:hover{background:rgba(22,38,75,.6);border-color:var(--line)}
+.mk{width:19px;height:19px;border-radius:6px;flex:0 0 auto;margin-top:3px;border:1.5px solid #33497C;
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:#060D1F}
+.mk.done{background:var(--ok);border-color:var(--ok)}
+.mk.prog{background:var(--warn);border-color:var(--warn)}
+.ms li span{font-size:13.5px}
+.ms li.done span{color:var(--muted);text-decoration:line-through;text-decoration-color:#31456F}
+.ms li small{display:block;font-size:11px;color:var(--muted);opacity:.8}
+.notes{background:rgba(10,20,44,.7);border:1px solid var(--line);border-radius:11px;padding:13px 15px;font-size:12.5px;color:#B9C7E2}
+.notes ul{margin:0;padding-right:17px}
+.notes li{margin:4px 0}
+.riskbox{border-color:#6B2E2C;background:rgba(217,83,79,.09)}
+.riskbox b{color:#FF9A96}
+
+/* ---------- footer bar ---------- */
+.tools{display:flex;gap:9px;flex-wrap:wrap;margin-top:26px;align-items:center}
+.tools button{background:var(--panel);border:1px solid var(--line);color:var(--muted);padding:8px 15px;
+  border-radius:9px;cursor:pointer;font-size:12.5px;font-family:inherit}
+.tools button:hover{border-color:var(--ember);color:var(--ember2)}
+.tools .note{font-size:11.5px;color:var(--muted);opacity:.75;margin-right:auto}
+.footer{margin-top:22px;padding-top:16px;border-top:1px solid var(--line);font-size:11.5px;color:var(--muted);
+  display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+@media(max-width:620px){h1{font-size:22px}body{padding:14px 12px 44px}.hero{padding:20px 18px}}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <div class="brandline">
+    <div>
+      <h1>عود الزبارة — داشبورد الأعمال<span>OUD AL ZUBARAH · BUSINESS DASHBOARD</span></h1>
+      <div class="tag">السيادة الصامتة · تقرير سير العمل الشامل للعلامة &nbsp;|&nbsp; Silent Sovereignty · Full brand delivery tracker</div>
+    </div>
+    <div class="stamp">
+      آخر تحديث · Last update<br><b id="stamp">—</b><br>
+      <span style="opacity:.7">تحديث تلقائي يومي ٨:٠٠ ص</span>
+    </div>
+  </div>
+  <div class="kpis">
+    <div class="kpi"><div class="v" id="kOverall">—</div><div class="l">نسبة الإنجاز الكلية<i>OVERALL PROGRESS</i></div></div>
+    <div class="kpi"><div class="v" id="kProj">—</div><div class="l">مشاريع نشطة / مكتملة<i>ACTIVE / COMPLETE</i></div></div>
+    <div class="kpi"><div class="v" id="kAssets">—</div><div class="l">أصل بصري تم إنتاجه<i>ASSETS PRODUCED</i></div></div>
+    <div class="kpi"><div class="v em" id="kDays">—</div><div class="l">يوم على معرض أبوظبي<i>DAYS TO ABU DHABI</i></div></div>
+  </div>
+</div>
+
+<div class="overall">
+  <div class="ring">
+    <svg width="132" height="132">
+      <circle cx="66" cy="66" r="56" fill="none" stroke="#16264B" stroke-width="11"></circle>
+      <circle id="ringArc" cx="66" cy="66" r="56" fill="none" stroke="url(#g1)" stroke-width="11"
+              stroke-linecap="round" stroke-dasharray="351.8" stroke-dashoffset="351.8"></circle>
+      <defs><linearGradient id="g1" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0%" stop-color="#E2683C"/><stop offset="100%" stop-color="#E3C98A"/>
+      </linearGradient></defs>
+    </svg>
+    <div class="pc"><b id="ringTxt">0%</b><small>COMPLETE</small></div>
+  </div>
+  <div class="txt">
+    <h3>الوضع العام للعلامة · Programme health</h3>
+    <p id="healthTxt">—</p>
+    <div class="legend">
+      <span><i style="background:var(--ok)"></i>مكتمل Done</span>
+      <span><i style="background:var(--warn)"></i>جارٍ In progress</span>
+      <span><i style="background:#33497C"></i>لم يبدأ Not started</span>
+      <span><i style="background:var(--risk)"></i>مسار حرج Critical path</span>
+    </div>
+  </div>
+</div>
+
+<div class="sechead"><h2>المشاريع <span>· PROJECTS</span></h2><div class="rule"></div></div>
+<div class="grid" id="grid"></div>
+
+<div class="sechead"><h2>المحتوى المُنتج <span>· CONTENT PRODUCED</span></h2><div class="rule"></div></div>
+<div class="stats" id="stats"></div>
+
+<div class="sechead"><h2>تقرير التفاعل على السوشيال ميديا <span>· SOCIAL ENGAGEMENT</span></h2><div class="rule"></div><span id="socPeriod" style="font-size:11.5px;color:var(--muted);white-space:nowrap"></span></div>
+<div class="socnote">أرقام إنستجرام وفيسبوك مسحوبة من Meta Business Suite · Insights › Results للفترة الموضحة. تيك توك في انتظار ربط الحساب.<br><span style="opacity:.75">Instagram &amp; Facebook sourced from Meta Business Suite (Insights › Results). TikTok pending.</span></div>
+<div class="soc" id="soc"></div>
+
+<div class="sechead"><h2>الخط الزمني <span>· TIMELINE</span></h2><div class="rule"></div></div>
+<div class="tl" id="tl"></div>
+
+<div class="tools">
+  <button onclick="expandAll()">توسيع كل التفاصيل · Expand all</button>
+  <button onclick="window.print()">طباعة / PDF</button>
+  <button id="btnPublish" onclick="publish()" style="border-color:var(--ember);color:var(--ember2)">نشر تعديلاتي على اللينك اللايف ↑</button>
+  <button id="btnReset" onclick="resetLocal()">استرجاع بيانات التقرير · Reset edits</button>
+  <span class="note" id="editNote">اضغط على أي مهمة داخل المشروع لتغيير حالتها (لم يبدأ ← جارٍ ← مكتمل) — النسبة تتحدث تلقائياً وتُحفظ.</span>
+</div>
+
+<div class="footer">
+  <span>عود الزبارة · oudalzubarah.com · دليل الهوية البصرية v6.2</span>
+  <span id="foot2">—</span>
+</div>
+</div>
+
+<div class="ov" id="ov" onclick="if(event.target===this)closeM()">
+  <div class="modal" id="modal"></div>
+</div>
+
+<script>
+/* =========== DATA START — الجزء ده اللي المهمة المجدولة بتحدّثه =========== */
+const DATA = {
+  updatedAt: "2026-08-06",
+  anchorDate: "2026-09-25",
+  anchorLabel: "معرض أبوظبي · Abu Dhabi Exhibition",
+  content: [
+    {id:"vid", n:27, t:"فيديو مُنتج",    e:"VIDEOS PRODUCED"},
+    {id:"car", n:38, t:"كاروسيل",        e:"CAROUSELS"},
+    {id:"img", n:64, t:"صورة منتج",     e:"PRODUCT STILLS"},
+    {id:"rnd", n:9,  t:"رندر 3D",       e:"3D RENDERS"},
+    {id:"fly", n:34, t:"فلاير",          e:"FLYERS"},
+    {id:"cat", n:1,  t:"كتالوج",        e:"CATALOGUE"}
+  ],
+  social:{
+    period:"آخر ٩٠ يوم · ٧ مايو – ٤ أغسطس ٢٠٢٦",
+    platforms:[
+      {id:"ig", n:"إنستجرام", e:"INSTAGRAM", c:"#E1306C",
+       m:[{k:"ig_v",t:"مشاهدة",v:799092},{k:"ig_r",t:"وصول",v:263000},{k:"ig_e",t:"تفاعل",v:5900},{k:"ig_f",t:"متابع جديد",v:937}],
+       best:"١٦٬٠٠٠ زيارة للحساب و١٠٬٤٠٠ نقرة رابط خلال الفترة"},
+      {id:"fb", n:"فيسبوك", e:"FACEBOOK", c:"#1877F2",
+       m:[{k:"fb_v",t:"مشاهدة",v:928900},{k:"fb_r",t:"مشاهد",v:586600},{k:"fb_e",t:"تفاعل",v:1100},{k:"fb_f",t:"متابع جديد",v:22}],
+       best:"٨٬٠٠٠ نقرة رابط موجّهة للموقع وواتساب"},
+      {id:"tt", n:"تيك توك", e:"TIKTOK", c:"#25F4EE",
+       m:[{k:"tt_v",t:"مشاهدة",v:3300},{k:"tt_p",t:"زيارة حساب",v:105},{k:"tt_e",t:"تفاعل",v:53},{k:"tt_l",t:"إعجاب",v:47}],
+       best:"٩٣٫٢٪ من المشاهدات جاءت من صفحة For You — وصول خوارزمي لجمهور جديد (٥ يونيو – ٣ أغسطس)"}
+    ]
+  },
+  projects: [
+    {
+      id:"content", w:3,
+      name:"الكونتنت", en:"CONTENT",
+      desc:"الاستراتيجية والإنتاج والنشر: دورة أسبوعية ثابتة، صيغ معتمدة، ومنظومة إنتاج بالذكاء الاصطناعي تخفّض التكلفة وتثبّت الهوية داخل الأدوات.",
+      ms:[
+        {s:2,t:"استراتيجية المحتوى الشاملة (أركان، جمهور، تقويم، KPIs)",d:"Content strategy"},
+        {s:2,t:"تثبيت الدورة الأسبوعية: ٦ مواضيع دوّارة على الكتالوج",d:"Weekly cycle"},
+        {s:2,t:"اعتماد بنية Style 1 (هوك ← دليل اجتماعي ← مكوّنات ← CTA)",d:"Style 1"},
+        {s:2,t:"اعتماد بنية Style 2 المؤسسية (٧ نقرات + تاغلاين)",d:"Style 2"},
+        {s:2,t:"قاموس اللغة: «يتنفسه» بدل «يشمه» — قاعدة ملزِمة",d:"Copy lexicon"},
+        {s:2,t:"إنتاج وتسليم ٢٧ فيديو و٣٨ كاروسيل و٦٤ صورة منتج",d:"Library delivered"},
+        {s:2,t:"تصدّر نتائج بحث تيك توك لعبارات شرائية عالية النية",d:"Search ranking"},
+        {s:2,t:"الأسبوع ١: ابن بطوطة + جرة عود هندي",d:"Week 1 delivered"},
+        {s:2,t:"تشغيل خط الصورة ← فيديو (Higgsfield)",d:"Image-to-video pipeline"},
+        {s:2,t:"بناء سكيل الموشن ديزاين (راوتر + ثوابت + ٥ وصفات)",d:"Motion skill"},
+        {s:2,t:"اعتماد صيغة Tactical Brief وقواعد برومبت الحركة",d:"Prompt system"},
+        {s:2,t:"سلاسل النفي الثابتة + ffmpeg للمراجعة",d:"QA tooling"},
+        {s:1,t:"خطة النشر حتى المعرض — ٥٧ منتج في ٤٠ يوم",d:"Publishing plan live"},
+        {s:1,t:"تشغيل النشر اليومي على إنستجرام وتيك توك",d:"Daily publishing"},
+        {s:1,t:"برومبتات الفئات الجديدة: سبراي، فرنسي، بخور، عود مطيّب",d:"New category prompts"},
+        {s:0,t:"Style 3 — UGC بشخصية العلامة",d:"Blocked on refs"}
+      ],
+      notes:["المكتبة الحالية تكفي ٦ أسابيع نشر يومي بدون تصوير جديد.",
+             "قاعدة ابن بطوطة: الورد في التعليق الصوتي فقط ولا يظهر بصرياً.",
+             "ASMR مصنّف تحت ركن الفخامة والهوية وليس التعليمي.",
+             "حد أقصى محاولتين لأي توليد قبل الرجوع للمراجعة اليدوية."],
+      risk:"المحتوى مُنتَج والنشر متوقف. كل يوم تأخير في التوزيع يقلّل فرصة بلوغ أهداف ٢٥ سبتمبر."
+    },
+    {
+      id:"rebrand", w:2,
+      name:"الريبراندنج", en:"REBRANDING & POSITIONING v6.2",
+      desc:"إعادة بناء العلامة حول «السيادة الصامتة»: تموضع تجاري، لوحة ألوان، هندسة إضاءة، خطوط، وقواعد بصرية ملزِمة لكل مخرج.",
+      ms:[
+        {s:2,t:"تثبيت التموضع: السيادة الصامتة + الفخامة البركانية",d:"Positioning"},
+        {s:2,t:"لوحة الألوان: كحلي بركاني ٧٠٪ / توهج الجمر / ذهبي مطفي",d:"Colour system"},
+        {s:2,t:"هندسة الإضاءة البركانية (خلفية + حافة، بلا إضاءة أمامية)",d:"Lighting"},
+        {s:2,t:"قاعدة العرض: رخام أسود بعروق ذهبية — إلزامية",d:"Display surface"},
+        {s:2,t:"اعتماد الخطوط: Wingix · SF Mada · Playfair · Montserrat",d:"Typography"},
+        {s:2,t:"قواعد التصوير: ماكرو 100mm ومنظور الجواهرجي للعود",d:"Photography rules"},
+        {s:2,t:"دليل الهوية v6.2 — PDF عربي مُصدَّر",d:"Brand book"},
+        {s:2,t:"قاعدة الشعار: ما بعد الإنتاج فقط، لا يُولَّد بالذكاء الاصطناعي",d:"Logo protocol"},
+        {s:2,t:"تحليل السوق والمنافسة ونقاط القوة والضعف",d:"Market analysis"},
+        {s:2,t:"تعريف أربع شرائح جمهور بمنصاتها وسلوكها",d:"Audience segments"},
+        {s:2,t:"الأركان الخمسة للمحتوى والتقويم السنوي",d:"Pillars & calendar"},
+        {s:2,t:"إطار مؤشرات النجاح وتوزيع الميزانية",d:"KPIs & budget"},
+        {s:2,t:"تطبيق الهوية على مواد المعرض والمطبوعات",d:"Exhibition collateral"},
+        {s:0,t:"صور مرجعية لشخصية العلامة (تفتح Style 3)",d:"Brand character refs"}
+      ],
+      notes:["دليل v6.2 هو المرجع الملزِم — لا يُستبدل بأي مرجع خارجي؛ تُؤخذ الأفكار الرسائلية فقط.",
+             "«فخامة منوّرة»: المشهد داكن والمنتج واضح — لا كآبة.",
+             "الرسالة الأساسية: الفخامة الحقيقية في كل قطرة."],
+      risk:""
+    },
+    {
+      id:"exhibitions", w:3,
+      name:"المعارض", en:"EXHIBITIONS",
+      desc:"معرض الدوحة (طيب الحزم) مُنفَّذ ومكتمل، ومعرض أبوظبي ٢٥ سبتمبر هو المرساة التسويقية للموسم بحملة من ثلاث مراحل.",
+      ms:[
+        {s:2,t:"الدوحة: تصميم البوث ثلاثي الأبعاد قبل التنفيذ",d:"Doha · 3D booth"},
+        {s:2,t:"الدوحة: الهوية المكانية داخل البوث",d:"Doha · spatial identity"},
+        {s:2,t:"الدوحة: الفلاير والكتالوج المطبوع",d:"Doha · print collateral"},
+        {s:2,t:"الدوحة: التنفيذ وإدارة الحضور",d:"Doha · executed"},
+        {s:2,t:"الدوحة: توثيق الدروس لتطبيقها في أبوظبي",d:"Doha · learnings"},
+        {s:2,t:"أبوظبي: تثبيت ٢٥ سبتمبر كمرساة لكل الخطة",d:"Anchor date"},
+        {s:2,t:"أبوظبي: خطة الحملة ثلاث مراحل (وعي ← اهتمام ← تحويل)",d:"3-phase campaign"},
+        {s:2,t:"أبوظبي: رسائل كل مرحلة بلا خصومات في الوعي",d:"Phase messaging"},
+        {s:1,t:"أبوظبي: تصميم البوث والهوية المكانية",d:"Booth design"},
+        {s:1,t:"أبوظبي: جدولة الإعلانات لكل مرحلة",d:"Ads scheduling"},
+        {s:1,t:"أبوظبي: المطبوعات وهدايا الزوار",d:"Print & giveaways"},
+        {s:1,t:"أبوظبي: جاهزية الشحنة قبل المعرض",d:"Shipment readiness"},
+        {s:0,t:"أبوظبي: بروفة العرض وتدريب فريق البوث",d:"Booth run-through"}
+      ],
+      notes:["مخرجات الدوحة هي القاعدة اللي يُبنى عليها بوث أبوظبي.",
+             "لا خصومات في مرحلة الوعي — الدعوة قائمة على التجربة لا السعر."],
+      risk:"جاهزية أبوظبي معلّقة على وصول شحنتَي التغليف والغرشات. المسار الأبطأ هو اللي يحدد التاريخ."
+    },
+    {
+      id:"website", w:3,
+      name:"الويب سايت", en:"WEBSITE · oudalzubarah.com",
+      desc:"التحوّل للبيع من الموقع بدل الرسائل: كتالوج رقمي، رحلة شراء بلا احتكاك، وإصلاح الأعطال اللي بتكسر القمع.",
+      ms:[
+        {s:2,t:"بناء الكتالوج الرقمي (١٨٧ منتج)",d:"Catalogue built"},
+        {s:2,t:"ربط الكتالوج بميتا (Product Feed)",d:"Meta catalogue sync"},
+        {s:2,t:"مراقبة الترافيك ومصادره بشكل دوري",d:"Traffic monitoring"},
+        {s:2,t:"حُلّت: صور منتجات غير متسقة ← المكتبة الجديدة",d:"FIXED · imagery"},
+        {s:2,t:"حُلّت: بيانات منتجات ناقصة توقف ظهور الكتالوج",d:"FIXED · feed errors"},
+        {s:2,t:"حُلّت: زر واتساب مباشر في كل صفحة منتج",d:"FIXED · contact path"},
+        {s:1,t:"جارٍ: تحسين سرعة التحميل على الموبايل",d:"Mobile speed"},
+        {s:1,t:"جارٍ: تحسين صفحات المنتج للسيو ووصف الروائح",d:"SEO & copy"},
+        {s:1,t:"جارٍ: تنظيف التصنيفات ومسار التصفح",d:"Taxonomy"},
+        {s:1,t:"الشراء كضيف + إنشاء حساب تلقائي بعد التأكيد ورابط كلمة المرور",d:"Guest checkout"},
+        {s:0,t:"عطل: «أضف للسلة» ثم «اشترِ الآن» يضاعف الكمية (٤٣٠ ← ٨٦٠)",d:"BUG · cart duplication"},
+        {s:0,t:"عطل صلاحيات: شاشة الدفع تعرض «ابحث عن عميل» لحساب عادي",d:"BUG · admin UI exposed"},
+        {s:0,t:"تصدير المنتجات: عمودا Product URL و Product ID",d:"Export columns"},
+        {s:0,t:"توحيد الفئات المكررة (GIFT BOXS / Gift Boxes · AL OUD / Oud)",d:"Category merge"},
+        {s:0,t:"صفحات هبوط مخصصة لحملات المعارض",d:"Landing pages"},
+        {s:0,t:"إضافة Google Analytics كمصدر قياس ثانٍ",d:"GA4"}
+      ],
+      notes:["قرار الإدارة: البيع من الموقع، والرسائل وواتساب لخدمة العملاء لا للبيع.",
+             "الموقع مطوَّر خصيصاً بدون منصة جاهزة — كل تعديل شغل مطوّر.",
+             "لا يوجد Google Analytics حالياً — ميتا هي مصدر القياس الوحيد."],
+      risk:"الشراء كضيف هو الأعلى أثراً: إجبار التسجيل قبل السلة يكسر الرحلة ويدفع العميل للرسائل. وعطل مضاعفة الكمية يهدد ثقة الطلبات."
+    },
+    {
+      id:"design", w:3,
+      name:"التصميمات", en:"DESIGN & PRODUCTION FILES",
+      desc:"كل التصميمات المادية للعلامة من المفهوم حتى ملفات الإنتاج النهائية: البوكس البيانو، التغليف، المباخر، والغرشات الزجاجية.",
+      ms:[
+        {s:2,t:"البوكس البيانو: اعتماد المفهوم",d:"Piano Box concept"},
+        {s:2,t:"البوكس البيانو: النموذج ثلاثي الأبعاد في Blender",d:"3D model"},
+        {s:2,t:"البوكس البيانو: مشهد الإضاءة بمعايير v6.2",d:"v6.2 lighting scene"},
+        {s:2,t:"البوكس البيانو: الرندر الأول واعتماد النسب",d:"First render"},
+        {s:2,t:"البوكس البيانو: تكستشر الشعار الحقيقي",d:"Logo texture"},
+        {s:2,t:"البوكس البيانو: تفاصيل الداخل والبطانة ومهد المنتج",d:"Interior detailing"},
+        {s:2,t:"البوكس البيانو: ملف Dieline والمواصفات للمصنع",d:"Dieline delivered"},
+        {s:2,t:"الغرشات: التصميم النهائي",d:"Bottle design"},
+        {s:2,t:"البوكس البيانو: رندرات زوايا إضافية",d:"Additional angles"},
+        {s:2,t:"المباخر: تحديد الخامات والمواصفات النهائية",d:"Burner materials & specs"},
+        {s:1,t:"الغرشات: ملفات الإنتاج النهائية للمصنع",d:"Bottle production files"},
+        {s:1,t:"المباخر: ملفات الإنتاج النهائية للمصنع",d:"Burner production files"},
+        {s:2,t:"دمج الخطوط الجديدة في الكتالوج والمحتوى",d:"Catalogue integration"}
+      ],
+      notes:["النمذجة ثلاثية الأبعاد قبل التصنيع توفّر جولات عينات وشحن مع المصانع.",
+             "الرندر بنفس قواعد الإضاءة البركانية ليكون مرجعاً للمصنع وللإعلانات معاً.",
+             "الأحمر القرمزي معتمد كإكسسوار للمباخر والأقمشة كقاعدة عرض فقط."],
+      risk:""
+    },
+    {
+      id:"sourcing", w:3,
+      name:"المراسلات وعروض الأسعار", en:"SOURCING & QUOTATIONS",
+      desc:"كل المراسلات التجارية وعروض الأسعار مع المصانع والموردين: Sinosy Packaging للتغليف والمباخر، وشركة أماندا للغرشات الزجاجية.",
+      ms:[
+        {s:2,t:"بحث الموردين بمصطلحات إنجليزية (نتائج أدق من العربية)",d:"Supplier research"},
+        {s:2,t:"Sinosy Packaging — مورّد التغليف والمباخر",d:"Sinosy onboarded"},
+        {s:2,t:"شركة أماندا — مورّد الغرشات الزجاجية",d:"Amanda onboarded"},
+        {s:2,t:"تأمين قنوات التواصل (إيميل مبيعات + واتساب)",d:"Comms channels"},
+        {s:2,t:"استخراج أرقام الأصناف والمواصفات من صفحات المصانع",d:"Item numbers & specs"},
+        {s:2,t:"إرسال طلب عرض السعر الرسمي لـ Sinosy — تسليم الدوحة",d:"Sinosy RFQ sent"},
+        {s:2,t:"إرسال تصميم الغرشات لشركة أماندا",d:"Amanda design sent"},
+        {s:2,t:"متابعة واستلام عرض سعر Sinosy النهائي",d:"Sinosy quote follow-up"},
+        {s:1,t:"في انتظار عرض سعر الغرشات من أماندا",d:"Awaiting Amanda quote"},
+        {s:1,t:"طلب العينات واعتمادها من المورّدين",d:"Samples approval"},
+        {s:1,t:"شروط الدفع وأوامر الشراء",d:"PO & payment terms"},
+        {s:1,t:"حجز الشحن وجدول الوصول قبل المعرض",d:"Shipping booking"}
+      ],
+      notes:["مورّدان منفصلان: Sinosy (تغليف ومباخر) وأماندا (غرشات زجاجية).",
+             "المسارَان لازم يوصلا معاً — الغرشة والعلبة لنفس الموعد قبل المعرض.",
+             "البحث بالإنجليزية عن فئات المنتجات يرجّع مصنّعين أدق بكثير."],
+      risk:"المسار الحرج للبرنامج كله. المسارَان معلّقان على عروض الأسعار — بدون أوامر شراء مؤكدة لا يوجد بوكس بيانو ولا غرشات في المعرض."
+    },
+    {
+      id:"ads", w:3,
+      name:"الحساب الإعلاني وميتا بكسل", en:"AD ACCOUNT & META PIXEL",
+      desc:"البنية الإعلانية والقياس: هيكل الحملات، البيكسل والأحداث، الكتالوج الديناميكي، وربط الإنفاق بالعائد بالريال.",
+      ms:[
+        {s:2,t:"إعداد حساب الإعلانات وهيكل الحملات",d:"Account structure"},
+        {s:2,t:"تركيب البيكسل على الموقع (ID 1570427640667031)",d:"Pixel installed"},
+        {s:2,t:"أحداث PageView و ViewContent بقيمة وعملة صحيحة",d:"Core events firing"},
+        {s:2,t:"بناء الجماهير المخصصة والمشابهة",d:"Audiences built"},
+        {s:2,t:"حملة بوكس الحجاج — تخطيط وإطلاق موسمي كامل",d:"Hajj Box campaign"},
+        {s:2,t:"كرييتيف حملة بوكس الحجاج على معايير v6.2",d:"Hajj creatives"},
+        {s:2,t:"ربط الكتالوج بميتا للإعلانات الديناميكية",d:"Catalogue linked"},
+        {s:1,t:"قراءة الأداء وتحسين الاستهداف والميزانية دورياً",d:"Ongoing optimisation"},
+        {s:2,t:"اختبارات A/B على الهوك والكرييتيف",d:"Creative A/B"},
+        {s:0,t:"إصلاح content_ids ليرسل SKU بدل الـ _id — تطابق الكتالوج صفر",d:"SKU mismatch"},
+        {s:0,t:"إضافة eventID للأحداث الأربعة لمنع الاحتساب المزدوج",d:"Event deduplication"},
+        {s:1,t:"تفعيل Conversions API (توليد التوكن + حدث تجريبي)",d:"CAPI setup"},
+        {s:0,t:"تخصيص أصول لمستخدم نظام CAPI (بلا أصول حالياً)",d:"CAPI assets"},
+        {s:1,t:"توحيد الداتاست (٣ بيكسلات، اثنان بلا أي حدث)",d:"Dataset cleanup"},
+        {s:1,t:"تحويل هدف الحملات من الرسائل إلى Conversions",d:"Objective switch"},
+        {s:0,t:"حملة معرض أبوظبي — ثلاث مراحل",d:"Abu Dhabi campaign"},
+        {s:0,t:"حملة إعادة استهداف زوّار الكتالوج",d:"Retargeting"},
+        {s:0,t:"لوحة تقارير موحّدة للإنفاق والعائد",d:"Spend & ROAS reporting"}
+      ],
+      notes:["حساب الإعلانات (QAR) غير مفعّل للقراءة الآلية عبر أدوات Ads MCP — قرار من ميتا.",
+             "ميتا تصنّف خطأ قيمة حدث الشراء كأولوية عالية في Events Manager.",
+             "لا خصومات في مرحلة الوعي — الخصم يكسر تموضع السيادة الصامتة."],
+      risk:"القياس غير مكتمل: SKU غير متطابق يوقف الإعلانات الديناميكية، وغياب eventID سيضاعف احتساب التحويلات عند تشغيل CAPI. أي إنفاق قبل الإصلاح يُصرف بلا قراءة."
+    },
+    {
+      id:"crm", w:2,
+      name:"نظام CRM", en:"CRM SYSTEM",
+      desc:"نظام موحّد لإدارة العملاء والطلبات: منصة واحدة تجمع بيانات الموقع وواتساب والرسائل، وتربط كل طلب بمصدره وتؤتمت المتابعة.",
+      ms:[
+        {s:1,t:"تحديد المتطلبات ومصادر البيانات (موقع · واتساب · إنستجرام · معارض)",d:"Requirements"},
+        {s:1,t:"اختيار المنصة وتقييم التكلفة",d:"Platform selection"},
+        {s:0,t:"سجل الطلبات: التاريخ · المنتج · القيمة · المصدر",d:"Order log"},
+        {s:0,t:"هجرة بيانات العملاء الحاليين",d:"Data migration"},
+        {s:0,t:"ربط الموقع — الحسابات والطلبات تلقائياً",d:"Website integration"},
+        {s:0,t:"ربط واتساب ورسائل إنستجرام",d:"Messaging integration"},
+        {s:0,t:"تتبّع مصدر كل طلب حتى الإعلان",d:"Source attribution"},
+        {s:0,t:"أتمتة المتابعة بعد البيع وبرنامج الولاء",d:"Post-sale automation"},
+        {s:0,t:"تقارير المبيعات والعائد وقيمة العميل",d:"Sales & LTV reporting"}
+      ],
+      notes:["المبيعات الحالية تتم في المحادثات ولا تُسجَّل في أي نظام — لا توجد بيانات تاريخية قابلة للتحليل.",
+             "سجل الطلبات هو الأساس: بدونه أي أتمتة أو قياس مبني على فراغ.",
+             "الربط بالموقع يستفيد من الحسابات التلقائية بعد الطلب."],
+      risk:"لا يوجد مصدر واحد لبيانات المبيعات حالياً. كل يوم بدون سجل هو بيانات تُفقد نهائياً."
+    }
+  ],
+  timeline:[
+    {d:"مُنجز · Done",   c:"#3FA97A", t:"الريبراندنج والهوية v6.2", p:"تموضع وألوان وإضاءة وخطوط وقواعد تصوير — المرجع الملزم لكل مخرج."},
+    {d:"مُنجز · Done",   c:"#3FA97A", t:"معرض الدوحة — طيب الحزم", p:"بوث 3D + فلاير + كتالوج مطبوع بالهوية الجديدة."},
+    {d:"مُنجز · Done",   c:"#3FA97A", t:"حملة بوكس الحجاج", p:"حملة موسمية كاملة بكرييتيف على الهوية ومسار تحويل مباشر."},
+    {d:"مُنجز · Done",   c:"#3FA97A", t:"٢٧ فيديو + ٣٨ كاروسيل + ٦٤ صورة", p:"مكتبة محتوى مُسلَّمة تكفي ٦ أسابيع نشر."},
+    {d:"مُنجز · Done",   c:"#3FA97A", t:"Dieline البوكس البيانو وتصميم الغرشات", p:"ملفات التصنيع جاهزة ومُرسلة للموردين."},
+    {d:"جارٍ · Active",  c:"#D9A441", t:"خطة النشر حتى المعرض", p:"٥٧ منتج في ٤٠ يوم — البخور والسبراي أولاً."},
+    {d:"جارٍ · Active",  c:"#D9A441", t:"إصلاح الموقع والقياس", p:"الشراء كضيف · عطل السلة · SKU · eventID · CAPI."},
+    {d:"حرج · Critical", c:"#D9534F", t:"عروض أسعار Sinosy وأماندا", p:"المسار الحرج — بدون أوامر شراء لا شحنة قبل المعرض."},
+    {d:"لم يبدأ",        c:"#33497C", t:"نظام CRM", p:"سجل الطلبات والعملاء — الأساس لأي قياس أو أتمتة."},
+    {d:"٢٥ سبتمبر",     c:"#E2683C", t:"معرض أبوظبي", p:"المرساة: ذروة الحملة ونهاية مرحلة التحويل."}
+  ]
+};
+/* =========== DATA END =========== */
+
+const CLIENT = true;   /* CLIENT_FLAG */
+const LS = "oaz-dash-v1";
+let state = load();
+
+function load(){
+  try{
+    const raw = JSON.parse(localStorage.getItem(LS)||"null");
+    if(raw && raw.base === DATA.updatedAt) return raw;
+  }catch(e){}
+  return {base:DATA.updatedAt, ms:{}, content:{}};
+}
+function save(){ try{ localStorage.setItem(LS, JSON.stringify(state)); }catch(e){} }
+function resetLocal(){ localStorage.removeItem(LS); state=load(); renderAll(); }
+
+function msState(pid,i){
+  const k = pid+":"+i;
+  return (k in state.ms) ? state.ms[k] : DATA.projects.find(p=>p.id===pid).ms[i].s;
+}
+function cnt(c){ return (c.id in state.content) ? state.content[c.id] : c.n; }
+
+function pct(p){
+  let sum=0;
+  p.ms.forEach((m,i)=>{ const s=msState(p.id,i); sum += s===2?1:(s===1?.5:0); });
+  return Math.round(sum/p.ms.length*100);
+}
+function status(p){
+  const v=pct(p);
+  if(p.risk && v<70) return ["risk","مسار حرج"];
+  if(v>=100) return ["done","مكتمل"];
+  if(v>=25)  return ["live","جارٍ التنفيذ"];
+  return ["soon","في الانتظار"];
+}
+
+function renderCards(){
+  document.getElementById("grid").innerHTML = DATA.projects.map(p=>{
+    const v=pct(p), [cls,lab]=status(p);
+    const done=p.ms.filter((m,i)=>msState(p.id,i)===2).length;
+    return `<div class="card" onclick="openM('${p.id}')">
+      <div class="top">
+        <h4>${p.name}<em>${p.en}</em></h4>
+        <span class="pill ${cls}">${lab}</span>
+      </div>
+      <div class="bar"><i style="width:${v}%"></i></div>
+      <div class="meta"><span>${done} من ${p.ms.length} مهمة مكتملة</span><b>${v}%</b></div>
+      <div class="hint">اضغط لعرض التفاصيل والمهام · Click for details</div>
+    </div>`;
+  }).join("");
+}
+
+function renderStats(){
+  document.getElementById("stats").innerHTML = DATA.content.map(c=>
+    `<div class="stat"><div class="n">${cnt(c)}</div><div class="t">${c.t}</div><div class="e">${c.e}</div>
+      ${CLIENT?"":`<div class="adj"><button onclick="adj('${c.id}',-1)">−</button><button onclick="adj('${c.id}',1)">+</button></div>`}
+    </div>`).join("");
+}
+function adj(id,d){
+  const c = DATA.content.find(x=>x.id===id);
+  state.content[id] = Math.max(0, cnt(c)+d);
+  save(); renderStats(); renderTop();
+}
+
+function sv(k,def){ return (k in (state.soc||{})) ? state.soc[k] : def; }
+function fmt(n){ return (typeof n==="number"? n : 0).toLocaleString("en-US"); }
+function renderSoc(){
+  document.getElementById("socPeriod").textContent = DATA.social.period;
+  document.getElementById("soc").innerHTML = DATA.social.platforms.map(p=>
+    `<div class="sp" style="--pc:${p.c}">
+      <h4><span>${p.n}</span><em>${p.e}</em></h4>
+      <div class="sm">${p.m.map(m=>
+        `<div class="smi" onclick="editSoc('${m.k}','${m.t}')">
+           <div class="sv">${sv(m.k,m.v)===0?'—':fmt(sv(m.k,m.v))}</div>
+           <div class="st">${m.t}</div></div>`).join("")}</div>
+      <div class="sbest"><b>الأفضل أداءً:</b> ${p.best}</div>
+    </div>`).join("");
+}
+function editSoc(k,label){
+  if(CLIENT) return;
+  const cur = sv(k,0);
+  const val = prompt("أدخل قيمة: "+label, cur||"");
+  if(val===null) return;
+  const num = parseFloat(String(val).replace(/[^\d.]/g,""));
+  state.soc = state.soc||{};
+  state.soc[k] = isNaN(num)?0:num;
+  save(); renderSoc();
+}
+
+function renderTL(){
+  document.getElementById("tl").innerHTML = DATA.timeline.map(r=>
+    `<div class="row"><span class="dot" style="background:${r.c}"></span>
+      <div class="d">${r.d}</div><div class="c"><b>${r.t}</b><p>${r.p}</p></div></div>`).join("");
+}
+
+function renderTop(){
+  let num=0, den=0;
+  DATA.projects.forEach(p=>{ num += pct(p)*p.w; den += 100*p.w; });
+  const overall = Math.round(num/den*100);
+  const done = DATA.projects.filter(p=>pct(p)>=100).length;
+  const assets = DATA.content.reduce((a,c)=>a+cnt(c),0);
+  const days = Math.max(0, Math.ceil((new Date(DATA.anchorDate)-new Date(DATA.updatedAt))/864e5));
+
+  document.getElementById("kOverall").textContent = overall+"%";
+  document.getElementById("kProj").textContent = (DATA.projects.length-done)+" / "+done;
+  document.getElementById("kAssets").textContent = assets;
+  document.getElementById("kDays").textContent = days;
+  document.getElementById("ringTxt").textContent = overall+"%";
+  document.getElementById("ringArc").style.strokeDashoffset = (351.8*(1-overall/100)).toFixed(1);
+  document.getElementById("stamp").textContent = DATA.updatedAt;
+  document.getElementById("foot2").textContent = "المرساة: "+DATA.anchorLabel+" — "+DATA.anchorDate;
+
+  const crit = DATA.projects.filter(p=>p.risk && pct(p)<70).map(p=>p.name);
+  document.getElementById("healthTxt").innerHTML =
+    `تم إنجاز <b style="color:var(--gold2)">${overall}%</b> من إجمالي برنامج العلامة عبر ${DATA.projects.length} مشاريع، `+
+    `مع <b style="color:var(--gold2)">${assets}</b> أصلاً بصرياً مُنتجاً و<b style="color:var(--ember2)">${days}</b> يوماً متبقياً على ${DATA.anchorLabel}. `+
+    (crit.length? `<span style="color:#FF9A96">نقاط تحتاج قراراً الآن: ${crit.join(" · ")}.</span>` : `لا توجد مسارات حرجة مفتوحة حالياً.`);
+}
+
+function openM(id){
+  const p = DATA.projects.find(x=>x.id===id);
+  const v = pct(p);
+  const done = p.ms.filter((m,i)=>msState(p.id,i)===2).length;
+  document.getElementById("modal").innerHTML = `
+    <button class="x" onclick="closeM()">✕</button>
+    <h3>${p.name}<em>${p.en}</em></h3>
+    <div class="mdesc">${p.desc}</div>
+    <div class="mbar"><i style="width:${v}%"></i></div>
+    <div class="mnums"><span>${done} مكتملة · ${p.ms.filter((m,i)=>msState(p.id,i)===1).length} جارية · ${p.ms.filter((m,i)=>msState(p.id,i)===0).length} لم تبدأ</span><b>${v}%</b></div>
+    <div class="sub">المهام · Milestones</div>
+    <ul class="ms">${p.ms.map((m,i)=>{
+      const s=msState(p.id,i);
+      const k = s===2?'<span class="mk done">✓</span>' : s===1?'<span class="mk prog">◐</span>' : '<span class="mk"></span>';
+      return `<li class="${s===2?'done':''}" onclick="tog('${p.id}',${i})">${k}<span>${m.t}<small>${m.d}</small></span></li>`;
+    }).join("")}</ul>
+    <div class="sub">ملاحظات وقواعد · Notes</div>
+    <div class="notes"><ul>${p.notes.map(n=>`<li>${n}</li>`).join("")}</ul></div>
+    ${p.risk? `<div class="sub">تنبيه · Attention</div><div class="notes riskbox"><b>${p.risk}</b></div>`:""}
+  `;
+  document.getElementById("ov").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+function closeM(){ document.getElementById("ov").classList.remove("on"); document.body.style.overflow=""; }
+function tog(pid,i){
+  if(CLIENT) return;
+  const k=pid+":"+i;
+  state.ms[k] = (msState(pid,i)+1)%3;
+  save(); openM(pid); renderCards(); renderTop();
+}
+function expandAll(){
+  const all = DATA.projects.map(p=>{
+    const v=pct(p);
+    return `<div style="margin-bottom:22px"><h3 style="font-size:16px">${p.name} — <span style="color:var(--gold2)">${v}%</span><em style="display:block;font-size:11px;color:var(--muted);font-style:normal">${p.en}</em></h3>
+      <div class="mbar" style="margin-top:8px"><i style="width:${v}%"></i></div>
+      <ul class="ms" style="margin-top:8px">${p.ms.map((m,i)=>{
+        const s=msState(p.id,i);
+        const k = s===2?'<span class="mk done">✓</span>' : s===1?'<span class="mk prog">◐</span>' : '<span class="mk"></span>';
+        return `<li class="${s===2?'done':''}" style="cursor:default">${k}<span>${m.t}<small>${m.d}</small></span></li>`;}).join("")}</ul></div>`;
+  }).join("");
+  document.getElementById("modal").innerHTML =
+    `<button class="x" onclick="closeM()">✕</button><h3>كل المشاريع بالتفصيل<em>ALL PROJECTS · FULL BREAKDOWN</em></h3>
+     <div style="margin-top:18px">${all}</div>`;
+  document.getElementById("ov").classList.add("on");
+  document.body.style.overflow="hidden";
+}
+document.addEventListener("keydown",e=>{ if(e.key==="Escape") closeM(); });
+
+/* ---- publish: يجمع تعديلاتك المحلية في نص جاهز تبعته لكلود فيرفعه على جت هب ---- */
+const SLAB={0:"لم يبدأ",1:"جارٍ",2:"مكتمل"};
+function pendingChanges(){
+  const out=[];
+  DATA.projects.forEach(p=>p.ms.forEach((m,i)=>{
+    const now=msState(p.id,i);
+    if(now!==m.s) out.push(`• ${p.name} ← "${m.t}" : ${SLAB[m.s]} ← ${SLAB[now]}`);
+  }));
+  DATA.content.forEach(c=>{ if(cnt(c)!==c.n) out.push(`• عدّاد ${c.t} : ${c.n} ← ${cnt(c)}`); });
+  DATA.social.platforms.forEach(p=>p.m.forEach(m=>{
+    const v=sv(m.k,m.v); if(v!==m.v) out.push(`• ${p.n} — ${m.t} : ${v}`);
+  }));
+  return out;
+}
+function publish(){
+  const ch=pendingChanges();
+  if(!ch.length){ alert("مفيش تعديلات جديدة عندك — النسخة اللايف مطابقة للي قدامك."); return; }
+  const txt="حدّث الداشبورد وارفعها على اللينك اللايف بالتغييرات دي:\n"+ch.join("\n");
+  const done=()=>alert("اتنسخت "+ch.length+" تعديل ✓\n\nالصقها في الشات وأنا أحدّث نسختك وأرفعها على جت هب في نفس اللحظة.");
+  if(navigator.clipboard&&navigator.clipboard.writeText){
+    navigator.clipboard.writeText(txt).then(done).catch(()=>fallback(txt));
+  } else fallback(txt);
+}
+function fallback(txt){
+  document.getElementById("modal").innerHTML=
+    `<button class="x" onclick="closeM()">✕</button><h3>تعديلاتك جاهزة للنشر<em>PENDING EDITS</em></h3>
+     <div class="mdesc">انسخ النص ده والصقه في الشات — هيتحدّث عندك وعلى اللينك اللايف مرة واحدة.</div>
+     <textarea style="width:100%;height:230px;background:#0A142C;color:var(--txt);border:1px solid var(--line);
+       border-radius:10px;padding:12px;font-family:inherit;font-size:13px;line-height:1.7" onclick="this.select()">${txt}</textarea>`;
+  document.getElementById("ov").classList.add("on");
+}
+
+function renderAll(){ renderCards(); renderStats(); renderSoc(); renderTL(); renderTop(); }
+if(CLIENT){
+  document.getElementById("btnReset").style.display="none";
+  document.getElementById("btnPublish").style.display="none";
+  document.getElementById("editNote").textContent="تقرير للعرض فقط · Read-only client report";
+  document.querySelector(".socnote").innerHTML =
+    'أرقام الأداء مأخوذة من تقارير المنصات الرسمية للفترة الموضحة.'+
+    '<br><span style="opacity:.75">Performance figures sourced from official platform reporting for the period shown.</span>';
+}
+renderAll();
+</script>
+</body>
+</html>
